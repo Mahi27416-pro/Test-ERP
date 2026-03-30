@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db');
+const { connectDB } = require('./config/db');
 
 dotenv.config();
-connectDB();
+
+// Pass runSchema: true on very first run to load college-erp.sql
+// After that set it to false (tables already exist)
+connectDB({ runSchema: process.env.RUN_SCHEMA === 'true' });
 
 const app = express();
 
